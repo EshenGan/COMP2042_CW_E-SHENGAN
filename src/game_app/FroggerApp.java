@@ -1,24 +1,18 @@
 /**
  * @refactor 
- *  renaming of package with meaningful name
+ *  renaming of package and Main java file with meaningful name
+ *  remove unused imports
  */
 package game_app;
-
-//import java.io.File;
-//import java.util.List;
 
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-//import javafx.scene.media.Media;
-//import javafx.scene.media.MediaPlayer;
-//import javafx.scene.text.Text;
 import javafx.stage.Stage;
-//import javafx.util.Duration;
 
-public class Main extends Application {
+public class FroggerApp extends Application {
 	AnimationTimer timer;
 	MyStage background;
 	Animal animal;
@@ -34,7 +28,7 @@ public class Main extends Application {
 	    background = new MyStage();
 	    Scene scene  = new Scene(background,600,800);
 		animal = new Animal("file:src/game_app/froggerUp.png");
-		background.add(animal);
+		
 	    
 		//Obstacle obstacle = new Obstacle("file:src/game_app/truck1Right.png", 25, 25, 3);
 		//Obstacle obstacle1 = new Obstacle("file:src/game_app/truck2Right.png", 100, 100,2 );
@@ -91,6 +85,7 @@ public class Main extends Application {
 		background.add(new Obstacle("file:src/game_app/truck1"+"Right.png", 0, 649, 1, 120, 120));
 		background.add(new Obstacle("file:src/game_app/truck1"+"Right.png", 300, 649, 1, 120, 120));
 		background.add(new Obstacle("file:src/game_app/truck1"+"Right.png", 600, 649, 1, 120, 120));
+		background.add(animal);
 		//background.add(new Obstacle("file:src/game_app/truck1"+"Right.png", 720, 649, 1, 120, 120));
 		background.add(new Obstacle("file:src/game_app/car1Left.png", 100, 597, -1, 50, 50));
 		background.add(new Obstacle("file:src/game_app/car1Left.png", 250, 597, -1, 50, 50));
