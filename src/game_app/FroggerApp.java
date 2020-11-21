@@ -38,7 +38,7 @@ public class FroggerApp extends Application {
 		frog1 = new Frog("file:src/game_app/froggerUp.png");
 		primaryStage.setScene(scene);
 		background.add(froggerbackground);
-		background.add(new Digit(0, 30, 360, 25));
+		background.add(new Digit(0, 30, 560, 25)); //changed xpos
 		buildLogs();
 		buildTurtles();
 		buildFrogHome();
@@ -49,6 +49,10 @@ public class FroggerApp extends Application {
 
 	}
 
+	/**@Refactor
+	 * background.start() is moved into start() 
+	 * from start(Stage primaryStage)
+	 */
 	public void start() {
 		background.start();
 		background.playMusic();
@@ -56,7 +60,9 @@ public class FroggerApp extends Application {
         timer.start();
     }
 
-	@Override 
+	/**@Override
+	 * overrides stop() method in javafx.application.application
+	 */
     public void stop() {
         timer.stop();
     }
@@ -64,12 +70,12 @@ public class FroggerApp extends Application {
 	//try to refactor this
 	public void createTimer() {
         timer = new AnimationTimer() {
-            @Override
+        	@Override
             public void handle(long now) {
             	if (frog1.changeScore()) {
             		setNumber(frog1.getPoints());
             	}
-            	if (frog1.getStop()) {
+            	if (frog1.getStop()) {// if end is equal to 5 then 
             		System.out.print("STOP:");
             		background.stopMusic();
             		stop();
@@ -80,11 +86,12 @@ public class FroggerApp extends Application {
             		alert.setContentText("Highest Possible Score: 800");
             		alert.show();
             	}
-            }
+            }    
         };
     }
 	
     
+
     //still dont understand how this work
     public void setNumber(int n) {
     	int shift = 0;
@@ -92,7 +99,7 @@ public class FroggerApp extends Application {
     		  int d = n / 10;
     		  int k = n - d * 10;
     		  n = d;
-    		  background.add(new Digit(k, 30, 360 - shift, 25));
+    		  background.add(new Digit(k, 30, 560 - shift, 25)); //changed xpos to 510
     		  shift+=30;
     		}
     }

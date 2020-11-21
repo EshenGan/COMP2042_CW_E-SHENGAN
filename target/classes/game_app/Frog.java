@@ -31,6 +31,7 @@ public class Frog extends Actor {
 	boolean stop = false;
 	boolean changeScore = false;
 	int carD = 0;
+	int waterD = 0;
 	double w = 800;
 	ArrayList<End> inter = new ArrayList<End>();
 	public Frog(String imageLink) {
@@ -170,28 +171,32 @@ public class Frog extends Actor {
 			}
 			
 		}
+		/**@Rename 
+		 * changed use of carD to waterD to avoid confusion
+		 * with car death
+		 */
 		if (waterDeath) {
 			noMove = true;
 			if ((now)% 11 ==0) {
-				carD++;
+				waterD++;
 			}
-			if (carD==1) {
+			if (waterD==1) {
 				setImage(new Image("file:src/game_app/waterdeath1.png", imgSize,imgSize , true, true));
 			}
-			if (carD==2) {
+			if (waterD==2) {
 				setImage(new Image("file:src/game_app/waterdeath2.png", imgSize,imgSize , true, true));
 			}
-			if (carD==3) {
+			if (waterD==3) {
 				setImage(new Image("file:src/game_app/waterdeath3.png", imgSize,imgSize , true, true));
 			}
-			if (carD == 4) {
+			if (waterD == 4) {
 				setImage(new Image("file:src/game_app/waterdeath4.png", imgSize,imgSize , true, true));
 			}
-			if (carD == 5) {
+			if (waterD == 5) {
 				setX(300);
 				setY(679.8+movement);
 				waterDeath = false;
-				carD = 0;
+				waterD = 0;
 				setImage(new Image("file:src/game_app/froggerUp.png", imgSize, imgSize, true, true));
 				noMove = false;
 				if (points>50) {
@@ -248,7 +253,7 @@ public class Frog extends Actor {
 		}
 	}
 	public boolean getStop() {
-		return end==5;
+		return end==5;  //if frog home aka end contains/is equal to 5 then return true
 	}
 	
 	public int getPoints() {
