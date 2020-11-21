@@ -1,4 +1,4 @@
-package p4_group_8_repo;
+package game_app;
 
 import javafx.scene.image.Image;
 
@@ -12,7 +12,7 @@ public class Digit extends Actor{
 	}
 	
 	public Digit(int n, int dim, int x, int y) {
-		im1 = new Image("file:src/p4_group_8_repo/"+n+".png", dim, dim, true, true);
+		im1 = new Image("file:src/game_app/"+n+".png", dim, dim, true, true);
 		setImage(im1);
 		setX(x);
 		setY(y);

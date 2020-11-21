@@ -1,4 +1,4 @@
-package p4_group_8_repo;
+package game_app;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;

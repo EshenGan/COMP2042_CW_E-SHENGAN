@@ -1,4 +1,4 @@
-package p4_group_8_repo;
+package game_app;
 
 
 import java.util.ArrayList;
@@ -11,9 +11,9 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.FlowPane;
+//import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+//import javafx.scene.layout.StackPane;
 
 
 public abstract class World extends Pane {
@@ -96,11 +96,22 @@ public abstract class World extends Pane {
         getChildren().remove(actor);
     }
 
+    /**
+     * @refactor 
+     * replace parameter use with local instance  
+     *  assigned (A)n to variable a of type A before passing a to .add()
+     *  instead of someArray.add((A)n);
+     * @param <A>
+     * @param cls
+     * @return someArray
+     */
     public <A extends Actor> List<A> getObjects(Class<A> cls) {
         ArrayList<A> someArray = new ArrayList<A>();
         for (Node n: getChildren()) {
             if (cls.isInstance(n)) {
-                someArray.add((A)n);
+            	A a = (A)n;
+				someArray.add(a);
+            	
             }
         }
         return someArray;
