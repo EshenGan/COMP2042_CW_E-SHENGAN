@@ -3,7 +3,6 @@ package game_app;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -98,7 +97,7 @@ public abstract class World extends Pane {
 
     /**
      * @refactor 
-     * replace parameter use with local instance  
+     * remove assignments to parameters 
      *  assigned (A)n to variable a of type A before passing a to .add()
      *  instead of someArray.add((A)n);
      * @param <A>

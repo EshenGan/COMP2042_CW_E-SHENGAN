@@ -15,7 +15,14 @@ import javafx.stage.Stage;
 public class FroggerApp extends Application {
 	AnimationTimer timer;
 	MyStage background;
-	Animal animal;
+	Frog frog1;
+	/**
+	 * @refactor
+	 * set up aggregated field here before instantiating as object in start(Stage primaryStage);
+	 */
+	Scene scene;
+	BackgroundImage froggerbackground;
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -26,18 +33,16 @@ public class FroggerApp extends Application {
 	 */
 	public void start(Stage primaryStage) throws Exception {
 	    background = new MyStage();
-	    Scene scene  = new Scene(background,600,800);
-		animal = new Animal("file:src/game_app/froggerUp.png");
-		
+	    scene  = new Scene(background,600,800);
+	    primaryStage.setScene(scene);
+		froggerbackground = new BackgroundImage("file:src/game_app/try1.jpg");
+		background.add(froggerbackground);
+		frog1 = new Frog("file:src/game_app/froggerUp.png");
 	    
 		//Obstacle obstacle = new Obstacle("file:src/game_app/truck1Right.png", 25, 25, 3);
 		//Obstacle obstacle1 = new Obstacle("file:src/game_app/truck2Right.png", 100, 100,2 );
 		//Obstacle obstacle2 = new Obstacle("file:src/game_app/truck1Right.png",0,  150, 1);
 
-		BackgroundImage froggerback = new BackgroundImage("file:src/game_app/try1.jpg");
-	    
-		background.add(froggerback);
-		
 		background.add(new Log("file:src/game_app/log3.png", 150, 0, 166, 0.75));
 		background.add(new Log("file:src/game_app/log3.png", 150, 220, 166, 0.75));
 		background.add(new Log("file:src/game_app/log3.png", 150, 440, 166, 0.75));
@@ -85,7 +90,7 @@ public class FroggerApp extends Application {
 		background.add(new Obstacle("file:src/game_app/truck1"+"Right.png", 0, 649, 1, 120, 120));
 		background.add(new Obstacle("file:src/game_app/truck1"+"Right.png", 300, 649, 1, 120, 120));
 		background.add(new Obstacle("file:src/game_app/truck1"+"Right.png", 600, 649, 1, 120, 120));
-		background.add(animal);
+		background.add(frog1);
 		//background.add(new Obstacle("file:src/game_app/truck1"+"Right.png", 720, 649, 1, 120, 120));
 		background.add(new Obstacle("file:src/game_app/car1Left.png", 100, 597, -1, 50, 50));
 		background.add(new Obstacle("file:src/game_app/car1Left.png", 250, 597, -1, 50, 50));
@@ -98,41 +103,47 @@ public class FroggerApp extends Application {
 		//background.add(obstacle);
 		//background.add(obstacle1);
 		//background.add(obstacle2);
-		background.start();
-		primaryStage.setScene(scene);
+		//background.start();
 		primaryStage.show();
-		start();  
+		start();
+
 	}
+
+	public void start() {
+		background.start();
+		background.playMusic();
+    	createTimer();
+        timer.start();
+    }
+
+	@Override 
+    public void stop() {
+        timer.stop();
+    }
+	
+	//try to refactor this
 	public void createTimer() {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-            	if (animal.changeScore()) {
-            		setNumber(animal.getPoints());
+            	if (frog1.changeScore()) {
+            		setNumber(frog1.getPoints());
             	}
-            	if (animal.getStop()) {
-            		System.out.print("STOPP:");
+            	if (frog1.getStop()) {
+            		System.out.print("STOP:");
             		background.stopMusic();
             		stop();
             		background.stop();
             		Alert alert = new Alert(AlertType.INFORMATION);
             		alert.setTitle("You Have Won The Game!");
-            		alert.setHeaderText("Your High Score: "+animal.getPoints()+"!");
+            		alert.setHeaderText("Your High Score: "+frog1.getPoints()+"!");
             		alert.setContentText("Highest Possible Score: 800");
             		alert.show();
             	}
             }
         };
     }
-	public void start() {
-		background.playMusic();
-    	createTimer();
-        timer.start();
-    }
-
-    public void stop() {
-        timer.stop();
-    }
+	
     
     //still dont understand how this work
     public void setNumber(int n) {
