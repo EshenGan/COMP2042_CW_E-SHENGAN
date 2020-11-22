@@ -52,6 +52,10 @@ public abstract class Actor extends ImageView{
         return someArray.get(0);
     }
 
-    public abstract void act(long now);
+/**@Refactor
+ * pull up method from End.java,BackgroundImage.java ,Digit.java
+ * @param now
+ */
+    public void act(long now) {}
 
 }

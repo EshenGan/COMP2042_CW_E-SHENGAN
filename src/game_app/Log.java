@@ -21,7 +21,10 @@ public class Log extends Actor {
 		speed = s;
 		
 	}
-	public boolean getLeft() {
+	/** @Refactor
+	 * rename getLeft to moveLeft
+	 */
+	public boolean moveLeft() {
 		return speed < 0;
 	}
 }

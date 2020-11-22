@@ -10,14 +10,9 @@ import javafx.scene.media.MediaPlayer;
 
 public class MyStage extends World{
 	private MediaPlayer mediaPlayer;
-	@Override
-	public void act(long now) {
-		
-	}
-	
-	public MyStage() {
-	}
-	
+	/**@Refactor
+	 * act method pulled to superclass
+	 */	
 	public void playMusic() {
 		String musicFile = "src/game_app/Frogger Main Song Theme (loop).mp3";   
 		Media sound = new Media(new File(musicFile).toURI().toString());

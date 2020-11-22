@@ -5,10 +5,9 @@ import javafx.scene.image.Image;
 public class End extends Actor{
 	/**@Refactor
 	 * encapsulate field and created setter and getter method
+	 * act(long now) method pulled to superclass
 	 */
 	private boolean activated = false;
-	@Override
-	public void act(long now) {}
 	
 	public End(int x, int y) {
 		setX(x);

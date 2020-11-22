@@ -60,94 +60,101 @@ public class Frog extends Actor {
 		imgD2 = new Image("file:src/game_app/froggerRightJump.png", imgSize, imgSize, true, true);
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event){
-				if (noMove) {
-					
-				}
-				else {
-				if (second) {
-					if (event.getCode() == KeyCode.W) {	  
+			/**@Refactor
+			 * consolidate duplicate conditional fragments
+			 * removed the outer most layer of if else statement
+			 * 
+			 */
+				if (noMove == false) {
+					if (second) {
+						if (event.getCode() == KeyCode.W) {	  
+			                move(0, -movement);
+			                changeScore = false;
+			                setImage(imgW1);
+			                //second = false;
+			            }
+			            else if (event.getCode() == KeyCode.A) {	            	
+			            	 move(-movementX, 0);
+			            	 setImage(imgA1);
+			            	 //second = false;
+			            }
+			            else if (event.getCode() == KeyCode.S) {	            	
+			            	 move(0, movement);
+			            	 setImage(imgS1);
+			            	 //second = false;
+			            }
+			            else if (event.getCode() == KeyCode.D) {	            	
+			            	 move(movementX, 0);
+			            	 setImage(imgD1);
+			            	 //second=false;
+			            }
+						second = false;
+					}
+					else if (event.getCode() == KeyCode.W) {	            	
 		                move(0, -movement);
-		                changeScore = false;
+		                setImage(imgW2);
+		                //second = true;
+		            }
+		            else if (event.getCode() == KeyCode.A) {	            	
+		            	 move(-movementX, 0);
+		            	 setImage(imgA2);
+		            	 //second = true;
+		            }
+		            else if (event.getCode() == KeyCode.S) {	            	
+		            	 move(0, movement);
+		            	 setImage(imgS2);
+		            	 //second = true;
+		            }
+		            else if (event.getCode() == KeyCode.D) {	            	
+		            	 move(movementX, 0);
+		            	 setImage(imgD2);
+		            	 //second = true;
+		            }
+		          second = true;					
+				}
+			
+			}// handle method body
+		}// eventhandler instantiation body
+		);// setonkeypressed method call
+		
+		setOnKeyReleased(new EventHandler<KeyEvent>() {
+			public void handle(KeyEvent event) {
+				if (noMove == false ){
+					if (event.getCode() == KeyCode.W) {	  
+						if (getY() < w) {
+							changeScore = true;
+							w = getY();
+							points+=10;
+						}
+		                move(0, -movement);
 		                setImage(imgW1);
-		                second = false;
+		                //second = false;
 		            }
 		            else if (event.getCode() == KeyCode.A) {	            	
 		            	 move(-movementX, 0);
 		            	 setImage(imgA1);
-		            	 second = false;
+		            	 //second = false;
 		            }
 		            else if (event.getCode() == KeyCode.S) {	            	
 		            	 move(0, movement);
 		            	 setImage(imgS1);
-		            	 second = false;
+		            	 //second = false;
 		            }
 		            else if (event.getCode() == KeyCode.D) {	            	
 		            	 move(movementX, 0);
 		            	 setImage(imgD1);
-		            	 second = false;
+		            	 //second = false;
 		            }
+				 second = false;
 				}
-				else if (event.getCode() == KeyCode.W) {	            	
-	                move(0, -movement);
-	                setImage(imgW2);
-	                second = true;
-	            }
-	            else if (event.getCode() == KeyCode.A) {	            	
-	            	 move(-movementX, 0);
-	            	 setImage(imgA2);
-	            	 second = true;
-	            }
-	            else if (event.getCode() == KeyCode.S) {	            	
-	            	 move(0, movement);
-	            	 setImage(imgS2);
-	            	 second = true;
-	            }
-	            else if (event.getCode() == KeyCode.D) {	            	
-	            	 move(movementX, 0);
-	            	 setImage(imgD2);
-	            	 second = true;
-	            }
-	        }
-			}
-		});	
-		setOnKeyReleased(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent event) {
-				if (noMove) {}
-				else {
-				if (event.getCode() == KeyCode.W) {	  
-					if (getY() < w) {
-						changeScore = true;
-						w = getY();
-						points+=10;
-					}
-	                move(0, -movement);
-	                setImage(imgW1);
-	                second = false;
-	            }
-	            else if (event.getCode() == KeyCode.A) {	            	
-	            	 move(-movementX, 0);
-	            	 setImage(imgA1);
-	            	 second = false;
-	            }
-	            else if (event.getCode() == KeyCode.S) {	            	
-	            	 move(0, movement);
-	            	 setImage(imgS1);
-	            	 second = false;
-	            }
-	            else if (event.getCode() == KeyCode.D) {	            	
-	            	 move(movementX, 0);
-	            	 setImage(imgD1);
-	            	 second = false;
-	            }
-	        }
+				//else {}
 			}
 			
 		});
-	}// end of constructor
+	}// end of frog constructor
 	
 	@Override
 	public void act(long now) {
-		// int bounds = 0;
 		if (getY()<0 || getY()>734) {
 			setX(300);
 			setY(679.8+movement);
@@ -215,8 +222,7 @@ public class Frog extends Actor {
 					points-=50;
 					changeScore = true;
 				}
-			}
-			
+			}	
 		}
 		
 		if (getX()>600) {
@@ -229,7 +235,7 @@ public class Frog extends Actor {
 		//	stop = true;
 		//}
 		if (getIntersectingObjects(Log.class).size() >= 1 && !noMove) {
-			if(getIntersectingObjects(Log.class).get(0).getLeft())
+			if(getIntersectingObjects(Log.class).get(0).moveLeft())
 				move(-2,0);
 			else
 				move (.75,0);
@@ -238,11 +244,10 @@ public class Frog extends Actor {
 			move(-1,0);
 		}
 		else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
-			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()) {
-				waterDeath = true;
-			} else {
-				move(-1,0);
-			}
+			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()) 
+			waterDeath = true;
+			 else 
+			move(-1,0);
 		}
 		else if (getIntersectingObjects(End.class).size() >= 1) {
 			inter = (ArrayList<End>) getIntersectingObjects(End.class);
@@ -260,10 +265,8 @@ public class Frog extends Actor {
 		}
 		else if (getY()<413){
 			waterDeath = true;
-			//setX(300);
-			//setY(679.8+movement);
 		}
-	}
+	}//end of act(long now)
 	public boolean getStop() {
 		return end==5;  //if frog home aka end contains/is equal to 5 then return true
 	}
@@ -278,8 +281,5 @@ public class Frog extends Actor {
 			return true;
 		}
 		return false;
-		
 	}
-	
-
 }
