@@ -13,15 +13,16 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class FroggerApp extends Application {
-	AnimationTimer timer;
-	MyStage background;
-	Frog frog1;
 	/**
 	 * @Refactor
-	 * set up aggregated field here before instantiating as object in start(Stage primaryStage);
+	 * set up aggregated field here before instantiating as object in start(Stage primaryStage)
+	 * field data encapsulation - OO Core Concept
 	 */
-	Scene scene;
-	BackgroundImage froggerbackground;
+	private AnimationTimer timer;
+	private MyStage background;
+	private Frog frog1;
+	private Scene scene;
+	private BackgroundImage froggerbackground;
 	
 	public static void main(String[] args) {
 		launch(args);
@@ -31,14 +32,17 @@ public class FroggerApp extends Application {
 	 * @Override
 	 * method overriding on application class
 	 */
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) throws Exception { 
 	    background = new MyStage();
 	    scene  = new Scene(background,600,800);
 		froggerbackground = new BackgroundImage("file:src/game_app/try1.jpg");
-		frog1 = new Frog("file:src/game_app/froggerUp.png");
+		/**@RefactorFactoryMethodDesignPattern
+		 * Replace constructor with factory method
+		 */
+		frog1 = Frog.createFrog("file:src/game_app/froggerUp.png");
 		primaryStage.setScene(scene);
 		background.add(froggerbackground);
-		background.add(new Digit(0, 30, 560, 25)); //changed xpos
+		background.add(new Digit(0, 30, 560, 25)); //changed xpos to 560 from 360
 		buildLogs();
 		buildTurtles();
 		buildFrogHome();
@@ -67,7 +71,6 @@ public class FroggerApp extends Application {
         timer.stop();
     }
 	
-	//try to refactor this
 	public void createTimer() {
         timer = new AnimationTimer() {
         	@Override
@@ -92,14 +95,14 @@ public class FroggerApp extends Application {
 	
     
 
-    //still dont understand how this work
+
     public void setNumber(int n) {
     	int shift = 0;
     	while (n > 0) {
     		  int d = n / 10;
     		  int k = n - d * 10;
     		  n = d;
-    		  background.add(new Digit(k, 30, 560 - shift, 25)); //changed xpos to 510
+    		  background.add(new Digit(k, 30, 560 - shift, 25)); //changed xpos to 560
     		  shift+=30;
     		}
     }
@@ -118,8 +121,7 @@ public class FroggerApp extends Application {
 		background.add(new End(ex,y));
     }
     
-    /**<newline>
-     * @Refactor
+    /**@Refactor
      * extract method
      */
     public void buildLogs() {

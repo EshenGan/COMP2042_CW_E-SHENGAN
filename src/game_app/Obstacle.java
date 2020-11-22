@@ -3,13 +3,16 @@ package game_app;
 import javafx.scene.image.Image;
 
 public class Obstacle extends Actor {
+	/**@Refactor
+	 * encapsulate field , create setter and getter method
+	 */
 	private int speed;
 	@Override
 	public void act(long now) {
-		move(speed , 0);
-		if (getX() > 600 && speed>0)
+		move(getSpeed() , 0);
+		if (getX() > 600 && getSpeed()>0)
 			setX(-200);
-		if (getX() < -50 && speed<0)
+		if (getX() < -50 && getSpeed()<0)
 			setX(600);
 	}
 	
@@ -18,6 +21,9 @@ public class Obstacle extends Actor {
 		setX(xpos);
 		setY(ypos);
 		speed = s;
+	}
+	public int getSpeed() {
+		return speed;
 	}
 
 }

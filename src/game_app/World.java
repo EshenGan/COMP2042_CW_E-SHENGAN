@@ -96,21 +96,24 @@ public abstract class World extends Pane {
         getChildren().remove(actor);
     }
 
-    /**
-     * @refactor 
+    /** @refactor 
      * remove assignments to parameters 
      *  assigned (A)n to variable a of type A before passing a to .add()
      *  instead of someArray.add((A)n);
-     * @param <A>
-     * @param cls
-     * @return someArray
+     *  added try and catch
      */
     public <A extends Actor> List<A> getObjects(Class<A> cls) {
         ArrayList<A> someArray = new ArrayList<A>();
         for (Node n: getChildren()) {
             if (cls.isInstance(n)) {
-            	A a = (A)n;
-				someArray.add(a);
+            	try {
+                	A a = (A)n;
+    				someArray.add(a);
+            	}
+            	catch(Exception e) {
+            		System.out.println(e);
+            	}
+
             	
             }
         }

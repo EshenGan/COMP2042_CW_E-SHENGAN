@@ -1,13 +1,15 @@
+/**@Remove
+ * remove all unused imports
+ */
 package game_app;
 
 import java.io.File;
-
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-//import javafx.util.Duration;
+
 
 public class MyStage extends World{
-	MediaPlayer mediaPlayer;
+	private MediaPlayer mediaPlayer;
 	@Override
 	public void act(long now) {
 		

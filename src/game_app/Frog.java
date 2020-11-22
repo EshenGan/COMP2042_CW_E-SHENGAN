@@ -11,30 +11,42 @@ import javafx.scene.input.KeyEvent;
 
 
 public class Frog extends Actor {
-	Image imgW1;
-	Image imgA1;
-	Image imgS1;
-	Image imgD1;
-	Image imgW2;
-	Image imgA2;
-	Image imgS2;
-	Image imgD2;
-	int points = 0;
-	int end = 0;
+/**@RefactorFactoryMethodDesignPattern
+ * Replace constructor with factory method
+ * Frog constructor is encapsulated
+ */
+	public static Frog createFrog(String imageLink) {
+		return new Frog(imageLink);
+	}
+
+/**@Refactor
+ * field encapsulation 
+ * 
+ */
+	private Image imgW1;
+	private Image imgA1;
+	private Image imgS1;
+	private Image imgD1;
+	private Image imgW2;
+	private Image imgA2;
+	private Image imgS2;
+	private Image imgD2;
+	private int points = 0;
+	private int end = 0;
 	private boolean second = false;
-	boolean noMove = false;
-	double movement = 13.3333333*2;
-	double movementX = 10.666666*2;
-	int imgSize = 40;
-	boolean carDeath = false;
-	boolean waterDeath = false;
-	boolean stop = false;
-	boolean changeScore = false;
-	int carD = 0;
-	int waterD = 0;
-	double w = 800;
+	private boolean noMove = false;
+	private double movement = 13.3333333*2;
+	private double movementX = 10.666666*2;
+	private int imgSize = 40;
+	private boolean carDeath = false;
+	private boolean waterDeath = false;
+	private boolean changeScore = false;
+	private int carD = 0;
+	private int waterD = 0;
+	private double w = 800;
+	// boolean stop = false;
 	ArrayList<End> inter = new ArrayList<End>();
-	public Frog(String imageLink) {
+	private Frog(String imageLink) {
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
 		setX(300);
 		setY(679.8+movement);
@@ -131,7 +143,7 @@ public class Frog extends Actor {
 			}
 			
 		});
-	}
+	}// end of constructor
 	
 	@Override
 	public void act(long now) {
@@ -213,9 +225,9 @@ public class Frog extends Actor {
 		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
 			carDeath = true;
 		}
-		if (getX() == 240 && getY() == 82) {
-			stop = true;
-		}
+		//if (getX() == 240 && getY() == 82) {
+		//	stop = true;
+		//}
 		if (getIntersectingObjects(Log.class).size() >= 1 && !noMove) {
 			if(getIntersectingObjects(Log.class).get(0).getLeft())
 				move(-2,0);

@@ -3,7 +3,10 @@ package game_app;
 import javafx.scene.image.Image;
 
 public class End extends Actor{
-	boolean activated = false;
+	/**@Refactor
+	 * encapsulate field and created setter and getter method
+	 */
+	private boolean activated = false;
 	@Override
 	public void act(long now) {}
 	
@@ -15,11 +18,15 @@ public class End extends Actor{
 	
 	public void setEnd() {
 		setImage(new Image("file:src/game_app/FrogEnd.png", 60, 60, true, true));
-		activated = true;
+		//activated = true;
+		setActivated(true);
 	}
 	
 	public boolean isActivated() {
 		return activated;
+	}
+	public void setActivated(boolean activated) {
+		this.activated = activated;
 	}
 	
 

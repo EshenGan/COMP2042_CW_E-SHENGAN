@@ -1,8 +1,10 @@
+/**@Remove
+ * remove all unused imports
+ */
 package game_app;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.input.InputEvent;
-
 import java.util.ArrayList;
 
 
