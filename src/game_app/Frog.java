@@ -19,10 +19,11 @@ public class Frog extends Actor {
 		return new Frog(imageLink);
 	}
 
-/**@Refactor
- * field encapsulation 
- * 
- */
+	/**@Refactor
+	 * self encapsulating field to avoid direct access of field even within own class
+	 * create setter and getter for encapsulated field
+	 * remove unused field 
+	 */
 	 private Image imgW1;
 	 private Image imgA1;
 	 private Image imgS1;
@@ -44,7 +45,7 @@ public class Frog extends Actor {
 	private int carD = 0;
 	private int waterD = 0;
 	private double w = 800;
-	// boolean stop = false;
+
 	ArrayList<End> inter = new ArrayList<End>();
 	private Frog(String imageLink) {
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
@@ -212,9 +213,7 @@ public class Frog extends Actor {
 		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
 			setCarDeath(true);
 		}
-		//if (getX() == 240 && getY() == 82) {
-		//	stop = true;
-		//}
+
 		if (getIntersectingObjects(Log.class).size() >= 1 && !isNoMove()) {
 			if(getIntersectingObjects(Log.class).get(0).moveLeft())
 				move(-2,0);
