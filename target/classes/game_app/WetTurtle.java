@@ -3,32 +3,40 @@ package game_app;
 import javafx.scene.image.Image;
 
 public class WetTurtle extends Actor{
-	Image turtle1;
-	Image turtle2;
-	Image turtle3;
-	Image turtle4;
+	/**@Refactor
+	 * field encapsulation
+	 * removal of unused field
+	 */
+	private Image turtle1;
+	private Image turtle2;
+	private Image turtle3;
+	private Image turtle4;
 	private int speed;
-	int i = 1;
-	boolean bool = true;
-	boolean sunk = false;
+	// private int i = 1;
+	//private boolean bool = true;
+	private boolean sunk = false;
 	@Override
 	public void act(long now) {
 
 				if (now/900000000  % 4 ==0) {
 					setImage(turtle2);
-					sunk = false;
+					//sunk = false;
+					setSunk(false);
 					
 				}
 				else if (now/900000000 % 4 == 1) {
 					setImage(turtle1);
-					sunk = false;
+					//sunk = false;
+					setSunk(false);
 				}
 				else if (now/900000000 %4 == 2) {
 					setImage(turtle3);
-					sunk = false;
+					//sunk = false;
+					setSunk(false);
 				} else if (now/900000000 %4 == 3) {
 					setImage(turtle4);
-					sunk = true;
+					//sunk = true;
+					setSunk(true);
 				}
 			
 		move(speed , 0);
@@ -46,6 +54,10 @@ public class WetTurtle extends Actor{
 		setY(ypos);
 		speed = s;
 		setImage(turtle2);
+	}
+	
+	public void setSunk(boolean b) {
+		sunk = b;
 	}
 	public boolean isSunk() {
 		return sunk;

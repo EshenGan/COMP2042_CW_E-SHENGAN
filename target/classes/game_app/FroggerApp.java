@@ -56,8 +56,9 @@ public class FroggerApp extends Application {
 	/**@Refactor
 	 * background.start() is moved into start() 
 	 * from start(Stage primaryStage)
+	 * method hiding since it is only used within the class
 	 */
-	public void start() {
+	protected void start() {
 		background.start();
 		background.playMusic();
     	createTimer();
@@ -71,7 +72,10 @@ public class FroggerApp extends Application {
         timer.stop();
     }
 	
-	public void createTimer() {
+	/**@Refactor
+	 * method hiding since it is only used within the class
+	 */
+	protected void createTimer() {
         timer = new AnimationTimer() {
         	@Override
             public void handle(long now) {
@@ -95,8 +99,11 @@ public class FroggerApp extends Application {
 	
     
 
-
-    public void setNumber(int n) {
+    /** @Refactor
+     * extract method
+     *  method hiding since it is only used within the class
+     */
+    protected void setNumber(int n) {
     	int shift = 0;
     	while (n > 0) {
     		  int d = n / 10;
@@ -106,11 +113,12 @@ public class FroggerApp extends Application {
     		  shift+=30;
     		}
     }
-    /**
-     * @Refactor
+    
+    /** @Refactor
      * extract method
+     *  method hiding since it is only used within the class
      */
-    public void buildFrogHome() {
+    protected void buildFrogHome() {
     	int ax = 13 , bx= 141 , cx=141+141-13;
     	int dx = 141+141-13+141-13+1, ex=141+141-13+141-13+141-13+3;
     	int y = 96;
@@ -123,8 +131,9 @@ public class FroggerApp extends Application {
     
     /**@Refactor
      * extract method
+     *  method hiding since it is only used within the class
      */
-    public void buildLogs() {
+    protected void buildLogs() {
     	//should i extract the parameters into objects instead?
 		background.add(new Log("file:src/game_app/log3.png", 150, 0, 166, 0.75));
 		background.add(new Log("file:src/game_app/log3.png", 150, 220, 166, 0.75));
@@ -154,11 +163,11 @@ public class FroggerApp extends Application {
 		//background.add(new Log("file:src/game_app/log2.png", 400, 220, 1));
     }
     
-    /**
-     * @Refactor
+    /** @Refactor
      * extract method
+     * method hiding since it is only used within the class
      */
-    public void buildTurtles() {
+    protected void buildTurtles() {
 		background.add(new Turtle(500, 376, -1, 130, 130));
 		background.add(new Turtle(300, 376, -1, 130, 130));
 		background.add(new WetTurtle(700, 376, -1, 130, 130));
@@ -170,8 +179,9 @@ public class FroggerApp extends Application {
     
     /**@Refactor
      * extract method
+     * method hiding since it is only used within the class
      */
-    public void buildObstacles() {
+    protected void buildObstacles() {
 		background.add(new Obstacle("file:src/game_app/truck1Right.png", 0, 649, 1, 120, 120));
 		background.add(new Obstacle("file:src/game_app/truck1Right.png", 300, 649, 1, 120, 120));
 		background.add(new Obstacle("file:src/game_app/truck1Right.png", 600, 649, 1, 120, 120));

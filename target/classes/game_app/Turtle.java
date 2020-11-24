@@ -3,12 +3,16 @@ package game_app;
 import javafx.scene.image.Image;
 
 public class Turtle extends Actor{
-	Image turtle1;
-	Image turtle2;
-	Image turtle3;
+	/**@Refactor
+	 * field encapsulation
+	 * removal of unused field
+	 */
+	private Image turtle1;
+	private Image turtle2;
+	private Image turtle3;
 	private int speed;
-	int i = 1;
-	boolean bool = true;
+	//private int i = 1;
+	//private boolean bool = true;
 	@Override
 	public void act(long now) {
 
