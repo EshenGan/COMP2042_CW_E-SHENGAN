@@ -50,7 +50,6 @@ public class FroggerApp extends Application {
 		buildObstacles();
 		primaryStage.show();
 		start();
-
 	}
 
 	/**@Refactor
@@ -79,7 +78,7 @@ public class FroggerApp extends Application {
         timer = new AnimationTimer() {
         	@Override
             public void handle(long now) {
-            	if (frog1.changeScore()) {
+            	if (frog1.getChangeScore()) {
             		setNumber(frog1.getPoints());
             	}
             	if (frog1.getStop()) {// if end is equal to 5 then 
@@ -119,8 +118,8 @@ public class FroggerApp extends Application {
      *  method hiding since it is only used within the class
      */
     protected void buildFrogHome() {
-    	int ax = 13 , bx= 141 , cx=141+141-13;
-    	int dx = 141+141-13+141-13+1, ex=141+141-13+141-13+141-13+3;
+    	int ax = 13 , bx= 141 , cx=269;
+    	int dx = 394, ex=524;
     	int y = 96;
 		background.add(new End(ax,y));
 		background.add(new End(bx,y));

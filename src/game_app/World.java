@@ -17,6 +17,10 @@ import javafx.scene.layout.Pane;
 
 
 public abstract class World extends Pane {
+	/**@Refactor
+	 * self encapsulating field to avoid direct access of field  even within own class
+	 * create setter and getter for encapsulated field
+	 */
     private AnimationTimer timer;
     
     public World() {
@@ -40,7 +44,7 @@ public abstract class World extends Pane {
 							}
 						}
 						
-					});
+					}); 	
 					
 					newValue.setOnKeyPressed(new EventHandler<KeyEvent>() {
 
@@ -78,14 +82,18 @@ public abstract class World extends Pane {
             }
         };
     }
+    
+    public AnimationTimer getTimer() {
+    	return timer;
+    }
 
     public void start() {
     	createTimer();
-        timer.start();
+        getTimer().start();
     }
 
     public void stop() {
-        timer.stop();
+        getTimer().stop();
     }
     
     public void add(Actor actor) {
@@ -123,7 +131,6 @@ public abstract class World extends Pane {
     //public abstract void act(long now);
     /** @Refactor
      * pull up method from subclass MyStage
-     * @param now
      */
     public void act(long now) {}
 }

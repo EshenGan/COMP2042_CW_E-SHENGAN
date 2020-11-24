@@ -4,8 +4,10 @@ import javafx.scene.image.Image;
 
 public class Turtle extends Actor{
 	/**@Refactor
-	 * field encapsulation
-	 * removal of unused field
+	 * self encapsulating field to avoid direct access of field 
+	 * even within own class
+	 * create setter and getter for encapsulated field
+	 * remove unused field 
 	 */
 	private Image turtle1;
 	private Image turtle2;
@@ -17,31 +19,56 @@ public class Turtle extends Actor{
 	public void act(long now) {
 
 				if (now/900000000  % 3 ==0) {
-					setImage(turtle2);
+					setImage(getTurtle2());
 					
 				}
 				else if (now/900000000 % 3 == 1) {
-					setImage(turtle1);
+					setImage(getTurtle1());
 					
 				}
 				else if (now/900000000 %3 == 2) {
-					setImage(turtle3);
+					setImage(getTurtle3());
 					
 				}
 			
-		move(speed , 0);
-		if (getX() > 600 && speed>0)
+		move(getSpeed() , 0);
+		if (getX() > 600 && getSpeed()>0)
 			setX(-200);
-		if (getX() < -75 && speed<0)
+		if (getX() < -75 && getSpeed()<0)
 			setX(600);
 	}
 	public Turtle(int xpos, int ypos, int s, int w, int h) {
-		turtle1 = new Image("file:src/game_app/TurtleAnimation1.png", w, h, true, true);
-		turtle2 = new Image("file:src/game_app/TurtleAnimation2.png", w, h, true, true);
-		turtle3 = new Image("file:src/game_app/TurtleAnimation3.png", w, h, true, true);
+		setTurtles(w,h);
 		setX(xpos);
 		setY(ypos);
-		speed = s;
+		setSpeed(s);
 		setImage(turtle2);
 	}
+	
+	public void setSpeed(int sp) {
+		speed = sp;
+	}
+	
+	public int getSpeed() {
+		return speed;
+	}
+	
+	public void setTurtles(int w0, int h0){
+		turtle1 = new Image("file:src/game_app/TurtleAnimation1.png", w0, h0, true, true);
+		turtle2 = new Image("file:src/game_app/TurtleAnimation2.png", w0, h0, true, true);
+		turtle3 = new Image("file:src/game_app/TurtleAnimation3.png", w0, h0, true, true);
+	}
+	
+	public Image getTurtle1(){
+		return turtle1; 
+	}
+	
+	public Image getTurtle2(){
+		return turtle2;
+	}
+
+	public Image getTurtle3(){
+		return turtle3;
+	}
+	
 }

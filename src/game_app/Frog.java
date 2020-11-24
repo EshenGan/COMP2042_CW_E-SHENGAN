@@ -23,21 +23,21 @@ public class Frog extends Actor {
  * field encapsulation 
  * 
  */
-	private Image imgW1;
-	private Image imgA1;
-	private Image imgS1;
-	private Image imgD1;
-	private Image imgW2;
-	private Image imgA2;
-	private Image imgS2;
-	private Image imgD2;
+	 private Image imgW1;
+	 private Image imgA1;
+	 private Image imgS1;
+	 private Image imgD1;
+	 private Image imgW2;
+	 private Image imgA2;
+	 private Image imgS2;
+	 private Image imgD2;
 	private int points = 0;
 	private int end = 0;
 	private boolean second = false;
 	private boolean noMove = false;
-	private double movement = 13.3333333*2;
-	private double movementX = 10.666666*2;
-	private int imgSize = 40;
+	private final double movement = 13.3333333*2;
+	private final double movementX = 10.666666*2;
+	private final int imgSize = 40;
 	private boolean carDeath = false;
 	private boolean waterDeath = false;
 	private boolean changeScore = false;
@@ -50,14 +50,7 @@ public class Frog extends Actor {
 		setImage(new Image(imageLink, imgSize, imgSize, true, true));
 		setX(300);
 		setY(679.8+movement);
-		imgW1 = new Image("file:src/game_app/froggerUp.png", imgSize, imgSize, true, true);
-		imgA1 = new Image("file:src/game_app/froggerLeft.png", imgSize, imgSize, true, true);
-		imgS1 = new Image("file:src/game_app/froggerDown.png", imgSize, imgSize, true, true);
-		imgD1 = new Image("file:src/game_app/froggerRight.png", imgSize, imgSize, true, true);
-		imgW2 = new Image("file:src/game_app/froggerUpJump.png", imgSize, imgSize, true, true);
-		imgA2 = new Image("file:src/game_app/froggerLeftJump.png", imgSize, imgSize, true, true);
-		imgS2 = new Image("file:src/game_app/froggerDownJump.png", imgSize, imgSize, true, true);
-		imgD2 = new Image("file:src/game_app/froggerRightJump.png", imgSize, imgSize, true, true);
+		setFrogSprite(imgSize);
 		setOnKeyPressed(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event){
 			/**@Refactor
@@ -65,52 +58,44 @@ public class Frog extends Actor {
 			 * removed the outer most layer of if else statement
 			 * 
 			 */
-				if (noMove == false) {
-					if (second) {
+				if (isNoMove() == false) {
+					if (isSecond()) {
 						if (event.getCode() == KeyCode.W) {	  
 			                move(0, -movement);
-			                changeScore = false;
-			                setImage(imgW1);
-			                //second = false;
+			                setChangeScore(false);
+			                setImage(getw1());
 			            }
 			            else if (event.getCode() == KeyCode.A) {	            	
 			            	 move(-movementX, 0);
-			            	 setImage(imgA1);
-			            	 //second = false;
+			            	 setImage(geta1());
 			            }
 			            else if (event.getCode() == KeyCode.S) {	            	
 			            	 move(0, movement);
-			            	 setImage(imgS1);
-			            	 //second = false;
+			            	 setImage(gets1());
 			            }
 			            else if (event.getCode() == KeyCode.D) {	            	
 			            	 move(movementX, 0);
-			            	 setImage(imgD1);
-			            	 //second=false;
+			            	 setImage(getd1());
 			            }
-						second = false;
+						setSecond(false);
 					}
 					else if (event.getCode() == KeyCode.W) {	            	
 		                move(0, -movement);
-		                setImage(imgW2);
-		                //second = true;
+		                setImage(getw2());
 		            }
 		            else if (event.getCode() == KeyCode.A) {	            	
 		            	 move(-movementX, 0);
-		            	 setImage(imgA2);
-		            	 //second = true;
+		            	 setImage(geta2());
 		            }
 		            else if (event.getCode() == KeyCode.S) {	            	
 		            	 move(0, movement);
-		            	 setImage(imgS2);
-		            	 //second = true;
+		            	 setImage(gets2());
 		            }
 		            else if (event.getCode() == KeyCode.D) {	            	
 		            	 move(movementX, 0);
-		            	 setImage(imgD2);
-		            	 //second = true;
+		            	 setImage(getd2());
 		            }
-		          second = true;					
+					setSecond(true);
 				}
 			
 			}// handle method body
@@ -119,35 +104,31 @@ public class Frog extends Actor {
 		
 		setOnKeyReleased(new EventHandler<KeyEvent>() {
 			public void handle(KeyEvent event) {
-				if (noMove == false ){
+				if (isNoMove() == false ){
 					if (event.getCode() == KeyCode.W) {	  
 						if (getY() < w) {
-							changeScore = true;
+							setChangeScore(true);
 							w = getY();
-							points+=10;
+							pPoints(10);
 						}
 		                move(0, -movement);
-		                setImage(imgW1);
-		                //second = false;
+		                setImage(getw1());
 		            }
 		            else if (event.getCode() == KeyCode.A) {	            	
 		            	 move(-movementX, 0);
-		            	 setImage(imgA1);
-		            	 //second = false;
+		            	 setImage(geta1());
 		            }
 		            else if (event.getCode() == KeyCode.S) {	            	
 		            	 move(0, movement);
-		            	 setImage(imgS1);
-		            	 //second = false;
+		            	 setImage(gets1());
 		            }
 		            else if (event.getCode() == KeyCode.D) {	            	
 		            	 move(movementX, 0);
-		            	 setImage(imgD1);
-		            	 //second = false;
+		            	 setImage(getd1());
 		            }
-				 second = false;
+				setSecond(false);	
 				}
-				//else {}
+
 			}
 			
 		});
@@ -162,30 +143,30 @@ public class Frog extends Actor {
 		if (getX()<0) {
 			move(movement*2, 0);
 		}
-		if (carDeath) {
-			noMove = true;
+		if (isCarDeath()) {
+			setNoMove(true);
 			if ((now)% 11 ==0) {
-				carD++;
+				addCarD(1);
 			}
-			if (carD==1) {
+			if (getCarD() == 1) {
 				setImage(new Image("file:src/game_app/cardeath1.png", imgSize, imgSize, true, true));
 			}
-			if (carD==2) {
+			if (getCarD() == 2) {
 				setImage(new Image("file:src/game_app/cardeath2.png", imgSize, imgSize, true, true));
 			}
-			if (carD==3) {
+			if (getCarD() == 3) {
 				setImage(new Image("file:src/game_app/cardeath3.png", imgSize, imgSize, true, true));
 			}
-			if (carD == 4) {
+			if (getCarD() == 4) {
 				setX(300);
 				setY(679.8+movement);
-				carDeath = false;
-				carD = 0;
+				setCarDeath(false);
+				setCarD(0);
 				setImage(new Image("file:src/game_app/froggerUp.png", imgSize, imgSize, true, true));
-				noMove = false;
-				if (points>50) {
-					points-=50;
-					changeScore = true;
+				setNoMove(false);
+				if (getPoints() >50) {
+					nPoints(50);
+					setChangeScore(true);
 				}
 			}
 			
@@ -194,33 +175,33 @@ public class Frog extends Actor {
 		 * changed use of carD to waterD to avoid confusion
 		 * with car death
 		 */
-		if (waterDeath) {
-			noMove = true;
+		if (isWaterDeath()) {
+			setNoMove(true);
 			if ((now)% 11 ==0) {
-				waterD++;
+				addWaterD(1);
 			}
-			if (waterD==1) {
+			if (getWaterD() == 1) {
 				setImage(new Image("file:src/game_app/waterdeath1.png", imgSize,imgSize , true, true));
 			}
-			if (waterD==2) {
+			if (getWaterD()== 2) {
 				setImage(new Image("file:src/game_app/waterdeath2.png", imgSize,imgSize , true, true));
 			}
-			if (waterD==3) {
+			if (getWaterD()== 3) {
 				setImage(new Image("file:src/game_app/waterdeath3.png", imgSize,imgSize , true, true));
 			}
-			if (waterD == 4) {
+			if (getWaterD() == 4) {
 				setImage(new Image("file:src/game_app/waterdeath4.png", imgSize,imgSize , true, true));
 			}
-			if (waterD == 5) {
+			if (getWaterD() == 5) {
 				setX(300);
 				setY(679.8+movement);
-				waterDeath = false;
-				waterD = 0;
+				setWaterDeath(false);
+				setWaterD(0);
 				setImage(new Image("file:src/game_app/froggerUp.png", imgSize, imgSize, true, true));
-				noMove = false;
-				if (points>50) {
-					points-=50;
-					changeScore = true;
+				setNoMove(false);
+				if (getPoints()>50) {
+					nPoints(50);
+					setChangeScore(true);
 				}
 			}	
 		}
@@ -229,57 +210,191 @@ public class Frog extends Actor {
 			move(-movement*2, 0);
 		}
 		if (getIntersectingObjects(Obstacle.class).size() >= 1) {
-			carDeath = true;
+			setCarDeath(true);
 		}
 		//if (getX() == 240 && getY() == 82) {
 		//	stop = true;
 		//}
-		if (getIntersectingObjects(Log.class).size() >= 1 && !noMove) {
+		if (getIntersectingObjects(Log.class).size() >= 1 && !isNoMove()) {
 			if(getIntersectingObjects(Log.class).get(0).moveLeft())
 				move(-2,0);
 			else
 				move (.75,0);
 		}
-		else if (getIntersectingObjects(Turtle.class).size() >= 1 && !noMove) {
+		else if (getIntersectingObjects(Turtle.class).size() >= 1 && !isNoMove()) {
 			move(-1,0);
 		}
 		else if (getIntersectingObjects(WetTurtle.class).size() >= 1) {
 			if (getIntersectingObjects(WetTurtle.class).get(0).isSunk()) 
-			waterDeath = true;
+				setWaterDeath(true);
 			 else 
-			move(-1,0);
+				 move(-1,0);
 		}
 		else if (getIntersectingObjects(End.class).size() >= 1) {
 			inter = (ArrayList<End>) getIntersectingObjects(End.class);
 			if (getIntersectingObjects(End.class).get(0).isActivated()) {
-				end--;
-				points-=50;
+				minusEnd(1);
+				nPoints(50);
 			}
-			points+=50;
-			changeScore = true;
-			w=800;
+			pPoints(50);
+			setChangeScore(true);
+			setW(800);
 			getIntersectingObjects(End.class).get(0).setEnd();
-			end++;
+			addEnd(1);
 			setX(300);
 			setY(679.8+movement);
 		}
 		else if (getY()<413){
-			waterDeath = true;
+			setWaterDeath(true);
 		}
 	}//end of act(long now)
 	public boolean getStop() {
 		return end==5;  //if frog home aka end contains/is equal to 5 then return true
 	}
 	
+	public void pPoints(int points) {
+		this.points += points;
+	}
+
+	public void nPoints(int points) {
+		this.points -= points;
+	}
+
 	public int getPoints() {
 		return points;
 	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void addEnd(int end) {
+		this.end += end;
+	}
+
+	public void minusEnd(int end) {
+		this.end -= end;
+	}
 	
-	public boolean changeScore() {
+	public boolean isSecond() {
+		return second;
+	}
+
+	public void setSecond(boolean second) {
+		this.second = second;
+	}
+
+	public boolean isNoMove() {
+		return noMove;
+	}
+
+	public void setNoMove(boolean noMove) {
+		this.noMove = noMove;
+	}
+
+	public boolean isCarDeath() {
+		return carDeath;
+	}
+
+	public void setCarDeath(boolean carDeath) {
+		this.carDeath = carDeath;
+	}
+
+	public boolean isWaterDeath() {
+		return waterDeath;
+	}
+
+	public void setWaterDeath(boolean waterDeath) {
+		this.waterDeath = waterDeath;
+	}
+
+	/**@Refactor
+	 * rename to getChangeScore
+	 */
+	public boolean getChangeScore() {
 		if (changeScore) {
 			changeScore = false;
 			return true;
 		}
 		return false;
+	}
+	
+	public void setChangeScore(boolean changeScore) {
+		this.changeScore = changeScore;
+	}
+	
+	public int getCarD() {
+		return carD;
+	}
+
+	public void setCarD(int carD) {
+		this.carD = carD;
+	}
+	
+	public void addCarD(int carD) {
+		this.carD += carD;
+	}
+
+	public int getWaterD() {
+		return waterD;
+	}
+
+	public void setWaterD(int waterD) {
+		this.waterD = waterD;
+	}
+	
+	public void addWaterD(int waterD) {
+		this.waterD += waterD;
+	}
+
+	public double getW() {
+		return w;
+	}
+
+	public void setW(double w) {
+		this.w = w;
+	}
+	
+	public void setFrogSprite(int i) {
+		imgW1 = new Image("file:src/game_app/froggerUp.png", i, i, true, true);
+		imgA1 = new Image("file:src/game_app/froggerLeft.png", i, i, true, true);
+		imgS1 = new Image("file:src/game_app/froggerDown.png", i, i, true, true);
+		imgD1 = new Image("file:src/game_app/froggerRight.png", i, i, true, true);
+		imgW2 = new Image("file:src/game_app/froggerUpJump.png", i, i, true, true);
+		imgA2 = new Image("file:src/game_app/froggerLeftJump.png", i, i, true, true);
+		imgS2 = new Image("file:src/game_app/froggerDownJump.png", i, i, true, true);
+		imgD2 = new Image("file:src/game_app/froggerRightJump.png", i, i, true, true);
+	}
+	
+	public Image getw1() {
+		return imgW1;
+	}
+	
+	public Image geta1() {
+		return imgA1;
+	}
+	
+	public Image gets1() {
+		return imgS1;
+	}
+	
+	public Image getd1() {
+		return imgD1;
+	}
+	
+	public Image getw2() {
+		return imgW2;
+	}
+	
+	public Image geta2() {
+		return imgA2;
+	}
+	
+	public Image gets2() {
+		return imgS2;
+	}
+	
+	public Image getd2() {
+		return imgD2;
 	}
 }

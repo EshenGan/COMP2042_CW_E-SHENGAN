@@ -4,7 +4,9 @@ import javafx.scene.image.Image;
 
 public class Obstacle extends Actor {
 	/**@Refactor
-	 * encapsulate field , create setter and getter method
+	 * self encapsulating field to avoid direct access of field 
+	 * even within own class
+	 * create setter and getter for encapsulated field 
 	 */
 	private int speed;
 	@Override
@@ -20,10 +22,15 @@ public class Obstacle extends Actor {
 		setImage(new Image(imageLink, w,h, true, true));
 		setX(xpos);
 		setY(ypos);
-		speed = s;
+		//speed = s;
+		setSpeed(s);
 	}
 	public int getSpeed() {
 		return speed;
+	}
+	
+	public void setSpeed(int sp) {
+		speed = sp;
 	}
 
 }
